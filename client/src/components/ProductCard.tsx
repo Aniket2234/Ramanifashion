@@ -1,0 +1,145 @@
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Heart, ShoppingCart, Star } from "lucide-react";
+import { useState } from "react";
+
+interface ProductCardProps {
+  id: string;
+  name: string;
+  image: string;
+  secondaryImage?: string;
+  price: number;
+  originalPrice?: number;
+  discount?: number;
+  rating?: number;
+  reviewCount?: number;
+  isNew?: boolean;
+  isBestseller?: boolean;
+  onAddToCart?: () => void;
+  onAddToWishlist?: () => void;
+  onClick?: () => void;
+}
+
+export default function ProductCard({
+  id,
+  name,
+  image,
+  secondaryImage,
+  price,
+  originalPrice,
+  discount,
+  rating = 0,
+  reviewCount = 0,
+  isNew,
+  isBestseller,
+  onAddToCart,
+  onAddToWishlist,
+  onClick,
+}: ProductCardProps) {
+  const [isWishlisted, setIsWishlisted] = useState(false);
+  const [currentImage, setCurrentImage] = useState(image);
+
+  const handleWishlist = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setIsWishlisted(!isWishlisted);
+    onAddToWishlist?.();
+  };
+
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    onAddToCart?.();
+  };
+
+  return (
+    <Card 
+      className="overflow-hidden cursor-pointer hover-elevate active-elevate-2 group"
+      onClick={onClick}
+      data-testid={`card-product-${id}`}
+    >
+      <div className="relative aspect-[3/4] overflow-hidden">
+        <img
+          src={currentImage}
+          alt={name}
+          className="w-full h-full object-cover"
+          onMouseEnter={() => secondaryImage && setCurrentImage(secondaryImage)}
+          onMouseLeave={() => setCurrentImage(image)}
+        />
+        
+        <Button
+          variant="ghost"
+          size="icon"
+          className={`absolute top-2 right-2 bg-white/80 hover:bg-white ${isWishlisted ? 'text-destructive' : ''}`}
+          onClick={handleWishlist}
+          data-testid={`button-wishlist-${id}`}
+        >
+          <Heart className={`h-4 w-4 ${isWishlisted ? 'fill-current' : ''}`} />
+        </Button>
+
+        {(isNew || isBestseller || discount) && (
+          <div className="absolute top-2 left-2 flex flex-col gap-1">
+            {isNew && (
+              <Badge className="bg-primary" data-testid={`badge-new-${id}`}>
+                New
+              </Badge>
+            )}
+            {isBestseller && (
+              <Badge className="bg-accent text-accent-foreground" data-testid={`badge-bestseller-${id}`}>
+                Bestseller
+              </Badge>
+            )}
+            {discount && (
+              <Badge className="bg-destructive" data-testid={`badge-discount-${id}`}>
+                {discount}% OFF
+              </Badge>
+            )}
+          </div>
+        )}
+
+        <div className="absolute bottom-0 left-0 right-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity">
+          <Button 
+            className="w-full bg-primary hover:bg-primary text-primary-foreground"
+            onClick={handleAddToCart}
+            data-testid={`button-add-to-cart-${id}`}
+          >
+            <ShoppingCart className="h-4 w-4 mr-2" />
+            Add to Cart
+          </Button>
+        </div>
+      </div>
+
+      <CardContent className="p-4">
+        <h3 className="font-medium text-sm mb-2 line-clamp-2" data-testid={`text-product-name-${id}`}>
+          {name}
+        </h3>
+        
+        {rating > 0 && (
+          <div className="flex items-center gap-1 mb-2">
+            <div className="flex">
+              {[...Array(5)].map((_, i) => (
+                <Star
+                  key={i}
+                  className={`h-3 w-3 ${i < Math.floor(rating) ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'}`}
+                />
+              ))}
+            </div>
+            <span className="text-xs text-muted-foreground" data-testid={`text-review-count-${id}`}>
+              ({reviewCount})
+            </span>
+          </div>
+        )}
+
+        <div className="flex items-center gap-2">
+          <span className="text-lg font-bold text-primary" data-testid={`text-price-${id}`}>
+            ₹{price.toLocaleString()}
+          </span>
+          {originalPrice && (
+            <span className="text-sm text-muted-foreground line-through" data-testid={`text-original-price-${id}`}>
+              ₹{originalPrice.toLocaleString()}
+            </span>
+          )}
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
