@@ -7,7 +7,7 @@ const sampleProducts = [
     description: "Beautiful handwoven silk saree with intricate golden border work. Perfect for weddings and special occasions.",
     price: 3499,
     originalPrice: 6999,
-    images: ["/placeholder-bridal.jpg"],
+    images: ["/attached_assets/generated_images/Pink_silk_saree_hero_a644da4b.png"],
     category: "Silk Sarees",
     subcategory: "Bridal",
     fabric: "Silk",
@@ -36,7 +36,7 @@ const sampleProducts = [
     description: "Light and comfortable cotton saree with delicate floral prints. Perfect for daily wear.",
     price: 1999,
     originalPrice: 3999,
-    images: ["/placeholder-cotton.jpg"],
+    images: ["/attached_assets/generated_images/Cotton_saree_product_3295c949.png"],
     category: "Cotton Sarees",
     subcategory: "Casual",
     fabric: "Cotton",
@@ -65,7 +65,7 @@ const sampleProducts = [
     description: "Modern designer saree with contemporary geometric patterns. Stand out at parties.",
     price: 4999,
     originalPrice: 9999,
-    images: ["/placeholder-designer.jpg"],
+    images: ["/attached_assets/generated_images/Designer_saree_modern_91330177.png"],
     category: "Designer Sarees",
     subcategory: "Party Wear",
     fabric: "Georgette",
@@ -94,7 +94,7 @@ const sampleProducts = [
     description: "Stunning party wear saree with sequin embellishments and shimmer. Be the center of attention.",
     price: 2999,
     originalPrice: 5999,
-    images: ["/placeholder-party.jpg"],
+    images: ["/attached_assets/generated_images/Party_wear_saree_86e79eab.png"],
     category: "Party Wear",
     subcategory: "Evening Wear",
     fabric: "Net",
@@ -123,7 +123,7 @@ const sampleProducts = [
     description: "Comfortable linen saree for everyday wear. Simple yet elegant design.",
     price: 1499,
     originalPrice: 2999,
-    images: ["/placeholder-casual.jpg"],
+    images: ["/attached_assets/generated_images/Casual_linen_saree_030a208d.png"],
     category: "Casual Wear",
     subcategory: "Daily Wear",
     fabric: "Linen",
@@ -152,7 +152,7 @@ const sampleProducts = [
     description: "Rich Banarasi silk saree with traditional zari weaving. A timeless classic.",
     price: 5999,
     originalPrice: 11999,
-    images: ["/placeholder-banarasi.jpg"],
+    images: ["/attached_assets/generated_images/Banarasi_saree_detail_604e6fdd.png"],
     category: "Silk Sarees",
     subcategory: "Banarasi",
     fabric: "Silk",
@@ -181,7 +181,7 @@ const sampleProducts = [
     description: "Professional cotton saree suitable for office wear. Comfortable all-day wear.",
     price: 1799,
     originalPrice: 3599,
-    images: ["/placeholder-office.jpg"],
+    images: ["/attached_assets/generated_images/Cotton_saree_product_3295c949.png"],
     category: "Cotton Sarees",
     subcategory: "Office Wear",
     fabric: "Cotton",
@@ -210,7 +210,7 @@ const sampleProducts = [
     description: "Exquisite designer saree with pearl embellishments. Perfect for special events.",
     price: 3999,
     originalPrice: 7999,
-    images: ["/placeholder-pearl.jpg"],
+    images: ["/attached_assets/generated_images/Bridal_saree_product_shot_3a9642d4.png"],
     category: "Designer Sarees",
     subcategory: "Party Wear",
     fabric: "Chiffon",
@@ -239,7 +239,7 @@ const sampleProducts = [
     description: "Traditional Kanjeevaram silk saree with temple border. Perfect for weddings.",
     price: 6999,
     originalPrice: 13999,
-    images: ["/placeholder-kanjeevaram.jpg"],
+    images: ["/attached_assets/generated_images/Kanjeevaram_saree_portrait_0444bedd.png"],
     category: "Silk Sarees",
     subcategory: "Kanjeevaram",
     fabric: "Silk",
@@ -268,7 +268,7 @@ const sampleProducts = [
     description: "Vibrant red georgette saree perfect for festivals and celebrations.",
     price: 2799,
     originalPrice: 5599,
-    images: ["/placeholder-festive.jpg"],
+    images: ["/attached_assets/generated_images/Festive_collection_banner_7a822710.png"],
     category: "Party Wear",
     subcategory: "Festival Wear",
     fabric: "Georgette",
@@ -297,7 +297,7 @@ const sampleProducts = [
     description: "Sophisticated black crepe saree with minimal design. Timeless elegance.",
     price: 2299,
     originalPrice: 4599,
-    images: ["/placeholder-black.jpg"],
+    images: ["/attached_assets/generated_images/Designer_saree_modern_91330177.png"],
     category: "Casual Wear",
     subcategory: "Evening Wear",
     fabric: "Crepe",
@@ -326,7 +326,7 @@ const sampleProducts = [
     description: "Light and airy Chanderi silk saree in cheerful yellow. Perfect for day events.",
     price: 3299,
     originalPrice: 6599,
-    images: ["/placeholder-yellow.jpg"],
+    images: ["/attached_assets/generated_images/Festive_collection_banner_7a822710.png"],
     category: "Silk Sarees",
     subcategory: "Chanderi",
     fabric: "Chanderi",
@@ -358,8 +358,8 @@ export async function seedDatabase() {
     
     const count = await Product.countDocuments();
     if (count > 0) {
-      console.log('Database already seeded');
-      return;
+      console.log('🔄 Updating existing products with new images...');
+      await Product.deleteMany({});
     }
 
     await Product.insertMany(sampleProducts);
