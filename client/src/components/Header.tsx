@@ -1,5 +1,7 @@
 import { ShoppingBag, Heart, User, Search, Menu, LogOut } from "lucide-react";
-import { SiInstagram, SiFacebook, SiWhatsapp } from "react-icons/si";
+import { SiWhatsapp } from "react-icons/si";
+import instagramIcon from "@assets/instagram_1762445939344.png";
+import facebookIcon from "@assets/communication_1762445935759.png";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -73,31 +75,31 @@ export default function Header({ cartCount = 0, wishlistCount = 0, onMenuClick }
                 href="https://instagram.com/ramanifashion" 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="flex flex-col items-center gap-1 text-pink-600 hover:text-pink-700 transition-colors group"
+                className="flex flex-col items-center gap-1 hover:opacity-80 transition-opacity group"
                 data-testid="link-instagram"
               >
-                <SiInstagram className="h-6 w-6" />
-                <span className="text-xs font-medium">@ramanifashion</span>
+                <img src={instagramIcon} alt="Instagram" className="h-6 w-6" />
+                <span className="text-xs font-medium text-black">@ramanifashion</span>
               </a>
               <a 
                 href="https://facebook.com/ramanifashion" 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="flex flex-col items-center gap-1 text-blue-600 hover:text-blue-700 transition-colors group"
+                className="flex flex-col items-center gap-1 hover:opacity-80 transition-opacity group"
                 data-testid="link-facebook"
               >
-                <SiFacebook className="h-6 w-6" />
-                <span className="text-xs font-medium">@ramanifashion</span>
+                <img src={facebookIcon} alt="Facebook" className="h-6 w-6" />
+                <span className="text-xs font-medium text-black">@ramanifashion</span>
               </a>
               <a 
                 href="https://wa.me/915555555555" 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="flex flex-col items-center gap-1 text-green-600 hover:text-green-700 transition-colors group"
+                className="flex flex-col items-center gap-1 hover:opacity-80 transition-opacity group"
                 data-testid="link-whatsapp"
               >
-                <SiWhatsapp className="h-6 w-6" />
-                <span className="text-xs font-medium">+91 5555555555</span>
+                <SiWhatsapp className="h-6 w-6 text-green-600" />
+                <span className="text-xs font-medium text-black">+91 5555555555</span>
               </a>
             </div>
           </div>
