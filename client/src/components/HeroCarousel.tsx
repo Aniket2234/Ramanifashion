@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import bannerImage from "@assets/Pink and Gold Gradient Decorative Woman Wonderful Indian YouTube Thumbnail (1)_1762443213141.png";
+import bannerImage from "@assets/Pink and Gold Gradient Decorative Woman Wonderful Indian YouTube Thumbnail (4)_1762447069451.png";
 
 const slides = [
   {
@@ -32,7 +32,7 @@ export default function HeroCarousel() {
   };
 
   return (
-    <div className="relative w-full h-[450px] md:h-[500px] overflow-hidden" style={{ backgroundColor: '#fff' }}>
+    <div className="relative w-full overflow-hidden" style={{ height: 'calc(100vh - 140px)', backgroundColor: '#fff' }}>
       {slides.map((slide, index) => (
         <div
           key={index}
