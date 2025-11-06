@@ -54,11 +54,7 @@ export default function Header({ cartCount = 0, wishlistCount = 0, onMenuClick }
 
   return (
     <header className="sticky top-0 z-50 w-full bg-background border-b">
-      <div className="bg-primary text-primary-foreground text-center py-2 text-sm">
-        Free shipping on orders above ₹999 | Easy Returns | Customer Support
-      </div>
-      
-      <div className="max-w-7xl mx-auto px-4 py-4">
+      <div className="max-w-7xl mx-auto px-4 py-6">
         <div className="flex items-center justify-between gap-4">
           <Button
             size="icon"
@@ -70,27 +66,15 @@ export default function Header({ cartCount = 0, wishlistCount = 0, onMenuClick }
             <Menu className="h-5 w-5" />
           </Button>
 
-          <a href="/" className="flex items-center justify-center">
-            <img 
-              src={logoImage}
-              alt="Ramani Fashion" 
-              className="h-12 md:h-16 w-auto object-contain"
-              data-testid="img-logo"
-            />
-          </a>
-
-          <div className="hidden md:flex flex-1 max-w-md mx-8">
-            <div className="relative w-full">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-              <Input
-                type="search"
-                placeholder="Search for sarees..."
-                className="pl-10"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                data-testid="input-search"
+          <div className="flex-1 flex items-center justify-center">
+            <a href="/" className="flex items-center justify-center">
+              <img 
+                src={logoImage}
+                alt="Ramani Fashion" 
+                className="h-16 md:h-20 lg:h-24 w-auto object-contain"
+                data-testid="img-logo"
               />
-            </div>
+            </a>
           </div>
 
           <div className="flex items-center gap-2">
@@ -151,20 +135,6 @@ export default function Header({ cartCount = 0, wishlistCount = 0, onMenuClick }
                 </Badge>
               )}
             </Button>
-          </div>
-        </div>
-
-        <div className="md:hidden mt-4">
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-            <Input
-              type="search"
-              placeholder="Search for sarees..."
-              className="pl-10"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              data-testid="input-search-mobile"
-            />
           </div>
         </div>
       </div>

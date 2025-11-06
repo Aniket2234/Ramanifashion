@@ -32,7 +32,7 @@ export default function HeroCarousel() {
   };
 
   return (
-    <div className="relative w-full h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden" style={{ backgroundColor: '#fff' }}>
+    <div className="relative w-full h-[500px] md:h-[600px] lg:h-[700px] overflow-hidden" style={{ backgroundColor: '#fff' }}>
       {slides.map((slide, index) => (
         <div
           key={index}
@@ -44,7 +44,7 @@ export default function HeroCarousel() {
             <img
               src={slide.image}
               alt="Ramani Fashion Banner"
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover object-center"
               data-testid={`img-hero-banner-${index}`}
               style={{ display: 'block' }}
             />
