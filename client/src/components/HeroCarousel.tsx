@@ -32,19 +32,19 @@ export default function HeroCarousel() {
   };
 
   return (
-    <div className="relative w-full h-auto overflow-hidden" style={{ backgroundColor: '#fff' }}>
+    <div className="relative w-full h-[450px] md:h-[500px] overflow-hidden" style={{ backgroundColor: '#fff' }}>
       {slides.map((slide, index) => (
         <div
           key={index}
-          className={`transition-opacity duration-700 ${
+          className={`absolute inset-0 transition-opacity duration-700 ${
             index === currentSlide ? "opacity-100" : "opacity-0"
           }`}
         >
-          <div className="relative w-full">
+          <div className="relative h-full w-full">
             <img
               src={slide.image}
               alt="Ramani Fashion Banner"
-              className="w-full h-auto"
+              className="w-full h-full object-cover object-center"
               data-testid={`img-hero-banner-${index}`}
               style={{ display: 'block' }}
             />
