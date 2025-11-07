@@ -218,7 +218,7 @@ export default function Home() {
 
         <section className="max-w-7xl mx-auto px-4 py-12">
           <div className="flex items-center justify-between mb-8">
-            <h2 className="text-3xl font-bold" data-testid="text-section-new-arrivals-home">
+            <h2 className="text-3xl font-bold font-serif" data-testid="text-section-new-arrivals-home">
               New Arrival
             </h2>
             <button
@@ -261,7 +261,7 @@ export default function Home() {
 
         <section className="max-w-7xl mx-auto px-4 py-12">
           <div className="flex items-center justify-between mb-8">
-            <h2 className="text-3xl font-bold" data-testid="text-section-trending-collection">
+            <h2 className="text-3xl font-bold font-serif" data-testid="text-section-trending-collection">
               Trending Collection
             </h2>
             <button
@@ -310,7 +310,7 @@ export default function Home() {
         </section>
 
         <section className="max-w-7xl mx-auto px-4 py-12">
-          <h2 className="text-3xl font-bold text-center mb-12" data-testid="text-section-categories">
+          <h2 className="text-3xl font-bold font-serif text-center mb-12" data-testid="text-section-categories">
             Shop by Category
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
@@ -333,7 +333,7 @@ export default function Home() {
 
         <section className="bg-card py-16">
           <div className="max-w-7xl mx-auto px-4">
-            <h2 className="text-3xl font-bold text-center mb-12" data-testid="text-section-testimonials">
+            <h2 className="text-3xl font-bold font-serif text-center mb-12" data-testid="text-section-testimonials">
               What Our Customers Say
             </h2>
             

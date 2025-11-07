@@ -63,7 +63,7 @@ export default function Header({ cartCount = 0, wishlistCount = 0, onMenuClick }
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-white border-b">
+    <header className="sticky top-0 z-50 w-full bg-white">
       <div className="max-w-7xl mx-auto px-4 py-3">
         <div className="grid grid-cols-3 items-center gap-6">
           <div className="flex items-start gap-3">
@@ -77,7 +77,7 @@ export default function Header({ cartCount = 0, wishlistCount = 0, onMenuClick }
               <Menu className="h-5 w-5" />
             </Button>
 
-            <div className="hidden md:flex items-start gap-6">
+            <div className="hidden md:flex items-start gap-8">
               <a 
                 href="https://instagram.com/ramanifashion" 
                 target="_blank" 
