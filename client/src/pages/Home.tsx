@@ -437,60 +437,60 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="contact" className="py-12 bg-gradient-to-b from-pink-50 to-white">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-8">
-              <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">Get In Touch</h2>
+        <section id="contact" className="py-16 bg-background">
+          <div className="max-w-7xl mx-auto px-4">
+            <div className="text-center mb-12">
+              <h2 className="text-4xl font-bold mb-4 text-foreground">Get In Touch</h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
                 We'd love to hear from you! Whether you have a question about our products, need assistance, or just want to share your feedback.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              <Card className="border-pink-200" data-testid="card-contact-form">
+            <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
+              <Card className="lg:col-span-3 border shadow-sm" data-testid="card-contact-form">
                 <CardContent className="p-8">
-                  <h3 className="text-2xl font-bold mb-6 bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
+                  <h3 className="text-2xl font-bold mb-6 text-foreground">
                     Send Us a Message
                   </h3>
                   <Form {...contactForm}>
                     <form onSubmit={contactForm.handleSubmit(onContactSubmit)} className="space-y-4">
-                      <FormField
-                        control={contactForm.control}
-                        name="name"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Name *</FormLabel>
-                            <FormControl>
-                              <Input 
-                                placeholder="Your full name" 
-                                {...field} 
-                                className="border-pink-200 focus:border-pink-500"
-                                data-testid="input-name"
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <FormField
+                          control={contactForm.control}
+                          name="name"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Name *</FormLabel>
+                              <FormControl>
+                                <Input 
+                                  placeholder="Your full name" 
+                                  {...field} 
+                                  data-testid="input-name"
+                                />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
 
-                      <FormField
-                        control={contactForm.control}
-                        name="mobile"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Mobile Number *</FormLabel>
-                            <FormControl>
-                              <Input 
-                                placeholder="Your mobile number" 
-                                {...field}
-                                className="border-pink-200 focus:border-pink-500"
-                                data-testid="input-mobile"
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
+                        <FormField
+                          control={contactForm.control}
+                          name="mobile"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Mobile Number *</FormLabel>
+                              <FormControl>
+                                <Input 
+                                  placeholder="Your mobile number" 
+                                  {...field}
+                                  data-testid="input-mobile"
+                                />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
 
                       <FormField
                         control={contactForm.control}
@@ -503,7 +503,6 @@ export default function Home() {
                                 type="email" 
                                 placeholder="your.email@example.com" 
                                 {...field}
-                                className="border-pink-200 focus:border-pink-500"
                                 data-testid="input-email"
                               />
                             </FormControl>
@@ -512,56 +511,54 @@ export default function Home() {
                         )}
                       />
 
-                      <FormField
-                        control={contactForm.control}
-                        name="subject"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Subject *</FormLabel>
-                            <FormControl>
-                              <Input 
-                                placeholder="What is this regarding?" 
-                                {...field}
-                                className="border-pink-200 focus:border-pink-500"
-                                data-testid="input-subject"
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-
-                      <FormField
-                        control={contactForm.control}
-                        name="category"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Category of Interest *</FormLabel>
-                            <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <FormField
+                          control={contactForm.control}
+                          name="subject"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Subject *</FormLabel>
                               <FormControl>
-                                <SelectTrigger 
-                                  className="border-pink-200 focus:border-pink-500"
-                                  data-testid="select-category"
-                                >
-                                  <SelectValue placeholder="Select a category" />
-                                </SelectTrigger>
+                                <Input 
+                                  placeholder="What is this regarding?" 
+                                  {...field}
+                                  data-testid="input-subject"
+                                />
                               </FormControl>
-                              <SelectContent>
-                                <SelectItem value="sarees" data-testid="option-sarees">Sarees</SelectItem>
-                                <SelectItem value="lehengas" data-testid="option-lehengas">Lehengas</SelectItem>
-                                <SelectItem value="kurtis" data-testid="option-kurtis">Kurtis</SelectItem>
-                                <SelectItem value="dress-materials" data-testid="option-dress-materials">Dress Materials</SelectItem>
-                                <SelectItem value="custom-order" data-testid="option-custom-order">Custom Order</SelectItem>
-                                <SelectItem value="bulk-order" data-testid="option-bulk-order">Bulk Order</SelectItem>
-                                <SelectItem value="general-inquiry" data-testid="option-general-inquiry">General Inquiry</SelectItem>
-                                <SelectItem value="complaint" data-testid="option-complaint">Complaint</SelectItem>
-                                <SelectItem value="feedback" data-testid="option-feedback">Feedback</SelectItem>
-                              </SelectContent>
-                            </Select>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+
+                        <FormField
+                          control={contactForm.control}
+                          name="category"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Category of Interest *</FormLabel>
+                              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                <FormControl>
+                                  <SelectTrigger data-testid="select-category">
+                                    <SelectValue placeholder="Select a category" />
+                                  </SelectTrigger>
+                                </FormControl>
+                                <SelectContent>
+                                  <SelectItem value="sarees" data-testid="option-sarees">Sarees</SelectItem>
+                                  <SelectItem value="lehengas" data-testid="option-lehengas">Lehengas</SelectItem>
+                                  <SelectItem value="kurtis" data-testid="option-kurtis">Kurtis</SelectItem>
+                                  <SelectItem value="dress-materials" data-testid="option-dress-materials">Dress Materials</SelectItem>
+                                  <SelectItem value="custom-order" data-testid="option-custom-order">Custom Order</SelectItem>
+                                  <SelectItem value="bulk-order" data-testid="option-bulk-order">Bulk Order</SelectItem>
+                                  <SelectItem value="general-inquiry" data-testid="option-general-inquiry">General Inquiry</SelectItem>
+                                  <SelectItem value="complaint" data-testid="option-complaint">Complaint</SelectItem>
+                                  <SelectItem value="feedback" data-testid="option-feedback">Feedback</SelectItem>
+                                </SelectContent>
+                              </Select>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
 
                       <FormField
                         control={contactForm.control}
@@ -572,7 +569,7 @@ export default function Home() {
                             <FormControl>
                               <Textarea 
                                 placeholder="Tell us more about your inquiry..."
-                                className="min-h-[100px] border-pink-200 focus:border-pink-500"
+                                className="min-h-[80px]"
                                 {...field}
                                 data-testid="textarea-message"
                               />
@@ -585,7 +582,7 @@ export default function Home() {
                       <Button 
                         type="submit" 
                         disabled={isSubmitting}
-                        className="w-full bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 text-white font-semibold py-6 text-lg"
+                        className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold py-5 text-base"
                         data-testid="button-submit"
                       >
                         {isSubmitting ? (
@@ -602,10 +599,10 @@ export default function Home() {
                 </CardContent>
               </Card>
 
-              <div className="space-y-6">
-                <Card className="border-pink-200" data-testid="card-map">
+              <div className="lg:col-span-2 space-y-6">
+                <Card className="border shadow-sm" data-testid="card-map">
                   <CardContent className="p-0">
-                    <div className="relative w-full h-[280px] rounded-lg overflow-hidden">
+                    <div className="relative w-full h-[200px] rounded-t-lg overflow-hidden">
                       <iframe
                         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3749.6774857769634!2d73.7875!3d19.9975!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTnCsDU5JzUxLjAiTiA3M8KwNDcnMTUuMCJF!5e0!3m2!1sen!2sin!4v1234567890"
                         width="100%"
@@ -621,86 +618,95 @@ export default function Home() {
                   </CardContent>
                 </Card>
 
-                <div className="grid grid-cols-2 gap-4">
-                  <Card className="border-pink-200 hover:shadow-xl transition-shadow" data-testid="card-contact-address">
-                    <CardContent className="p-4 text-center">
-                      <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-pink-100 to-pink-200 rounded-full mb-2">
-                        <MapPin className="w-6 h-6 text-pink-600" />
+                <Card className="border shadow-sm hover:shadow-md transition-shadow" data-testid="card-contact-info">
+                  <CardContent className="p-6 space-y-6">
+                    <div className="flex items-start gap-4">
+                      <div className="flex-shrink-0 w-10 h-10 rounded-full bg-muted flex items-center justify-center">
+                        <MapPin className="w-5 h-5 text-foreground" />
                       </div>
-                      <h3 className="text-sm font-semibold mb-1">Address</h3>
-                      <p className="text-xs text-muted-foreground" data-testid="text-address">
-                        Shop No. 15, Ground Floor,<br />Kalpataru Complex,<br />Near City Mall, Nashik,<br />Maharashtra 422001
-                      </p>
-                    </CardContent>
-                  </Card>
+                      <div className="flex-1">
+                        <h3 className="font-semibold text-foreground mb-1">Address</h3>
+                        <p className="text-sm text-muted-foreground leading-relaxed" data-testid="text-address">
+                          Shop No. 15, Ground Floor, Kalpataru Complex,<br />
+                          Near City Mall, Nashik, Maharashtra 422001
+                        </p>
+                      </div>
+                    </div>
 
-                  <Card className="border-pink-200 hover:shadow-xl transition-shadow" data-testid="card-contact-phone">
-                    <CardContent className="p-4 text-center">
-                      <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-purple-100 to-purple-200 rounded-full mb-2">
-                        <Phone className="w-6 h-6 text-purple-600" />
+                    <div className="flex items-start gap-4">
+                      <div className="flex-shrink-0 w-10 h-10 rounded-full bg-muted flex items-center justify-center">
+                        <Phone className="w-5 h-5 text-foreground" />
                       </div>
-                      <h3 className="text-sm font-semibold mb-1">Phone</h3>
-                      <a 
-                        href="tel:+915555555555" 
-                        className="text-purple-600 hover:underline text-xs block mb-1"
-                        data-testid="link-phone"
-                      >
-                        +91 5555555555
-                      </a>
-                      <div className="flex justify-center gap-2">
+                      <div className="flex-1">
+                        <h3 className="font-semibold text-foreground mb-1">Phone</h3>
+                        <a 
+                          href="tel:+915555555555" 
+                          className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                          data-testid="link-phone"
+                        >
+                          +91 5555555555
+                        </a>
+                      </div>
+                    </div>
+
+                    <div className="flex items-start gap-4">
+                      <div className="flex-shrink-0 w-10 h-10 rounded-full bg-muted flex items-center justify-center">
+                        <Mail className="w-5 h-5 text-foreground" />
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="font-semibold text-foreground mb-1">Email</h3>
+                        <a 
+                          href="mailto:info@ramanifashion.in" 
+                          className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                          data-testid="link-email"
+                        >
+                          info@ramanifashion.in
+                        </a>
+                      </div>
+                    </div>
+
+                    <div className="flex items-start gap-4">
+                      <div className="flex-shrink-0 w-10 h-10 rounded-full bg-muted flex items-center justify-center">
+                        <Clock className="w-5 h-5 text-foreground" />
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="font-semibold text-foreground mb-1">Store Hours</h3>
+                        <div className="text-sm text-muted-foreground space-y-1">
+                          <p data-testid="text-hours-weekday">Mon-Sat: 10 AM - 9 PM</p>
+                          <p data-testid="text-hours-sunday">Sun: 11 AM - 8 PM</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="pt-4 border-t border-border">
+                      <h3 className="font-semibold text-foreground mb-3">Connect With Us</h3>
+                      <div className="flex gap-3">
                         <a 
                           href="https://instagram.com/ramanifashion" 
                           target="_blank" 
                           rel="noopener noreferrer" 
-                          className="text-pink-600 hover:scale-110 transition-transform"
+                          className="flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 text-white hover:from-purple-600 hover:to-pink-600 transition-all shadow-sm hover:shadow-md"
                           data-testid="link-instagram"
                           aria-label="Instagram"
                         >
-                          <FaInstagram className="w-4 h-4" />
+                          <FaInstagram className="w-5 h-5" />
+                          <span className="text-sm font-medium">Instagram</span>
                         </a>
                         <a 
                           href="https://wa.me/915555555555" 
                           target="_blank" 
                           rel="noopener noreferrer" 
-                          className="text-green-600 hover:scale-110 transition-transform"
+                          className="flex items-center gap-2 px-4 py-2 rounded-full bg-green-600 text-white hover:bg-green-700 transition-all shadow-sm hover:shadow-md"
                           data-testid="link-whatsapp"
                           aria-label="WhatsApp"
                         >
-                          <FaWhatsapp className="w-4 h-4" />
+                          <FaWhatsapp className="w-5 h-5" />
+                          <span className="text-sm font-medium">WhatsApp</span>
                         </a>
                       </div>
-                    </CardContent>
-                  </Card>
-
-                  <Card className="border-pink-200 hover:shadow-xl transition-shadow" data-testid="card-contact-email">
-                    <CardContent className="p-4 text-center">
-                      <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-pink-100 to-purple-200 rounded-full mb-2">
-                        <Mail className="w-6 h-6 text-pink-600" />
-                      </div>
-                      <h3 className="text-sm font-semibold mb-1">Email</h3>
-                      <a 
-                        href="mailto:info@ramanifashion.in" 
-                        className="text-pink-600 hover:underline text-xs"
-                        data-testid="link-email"
-                      >
-                        info@ramanifashion.in
-                      </a>
-                    </CardContent>
-                  </Card>
-
-                  <Card className="border-pink-200 hover:shadow-xl transition-shadow" data-testid="card-store-hours">
-                    <CardContent className="p-4 text-center">
-                      <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-purple-100 to-pink-200 rounded-full mb-2">
-                        <Clock className="w-6 h-6 text-purple-600" />
-                      </div>
-                      <h3 className="text-sm font-semibold mb-1">Store Hours</h3>
-                      <div className="text-xs text-muted-foreground">
-                        <p data-testid="text-hours-weekday">Mon-Sat: 10 AM - 9 PM</p>
-                        <p data-testid="text-hours-sunday">Sun: 11 AM - 8 PM</p>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </div>
+                    </div>
+                  </CardContent>
+                </Card>
               </div>
             </div>
           </div>
