@@ -5,9 +5,35 @@ import NewArrivalCard from "@/components/NewArrivalCard";
 import TestimonialCard from "@/components/TestimonialCard";
 import Footer from "@/components/Footer";
 import { useLocation } from "wouter";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { apiRequest } from "@/lib/queryClient";
+import { useToast } from "@/hooks/use-toast";
+import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Card, CardContent } from "@/components/ui/card";
+import { MapPin, Phone, Mail, Clock, Send } from "lucide-react";
+import { FaInstagram, FaWhatsapp } from "react-icons/fa";
 
 import bridalImage from "@assets/generated_images/Bridal_saree_product_shot_3a9642d4.png";
 import cottonImage from "@assets/generated_images/Cotton_saree_product_3295c949.png";
@@ -27,9 +53,22 @@ import patchWorkImage from "@/assets/patch-work.png";
 import pureLinenImage from "@/assets/pure-linen.png";
 import saleImage from "@/assets/sale.png";
 
+const contactFormSchema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters"),
+  mobile: z.string().min(10, "Please enter a valid mobile number"),
+  email: z.string().email("Please enter a valid email address"),
+  subject: z.string().min(3, "Subject must be at least 3 characters"),
+  category: z.string().min(1, "Please select a category"),
+  message: z.string().optional(),
+});
+
+type ContactFormValues = z.infer<typeof contactFormSchema>;
+
 export default function Home() {
   const [, setLocation] = useLocation();
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { toast } = useToast();
 
   const { data: newArrivalsData } = useQuery({
     queryKey: ["/api/products?isNew=true&limit=6"],
@@ -41,6 +80,45 @@ export default function Home() {
 
   const newArrivals = (newArrivalsData as any)?.products || [];
   const trendingProducts = (trendingData as any)?.products || [];
+
+  const contactForm = useForm<ContactFormValues>({
+    resolver: zodResolver(contactFormSchema),
+    defaultValues: {
+      name: "",
+      mobile: "",
+      email: "",
+      subject: "",
+      category: "",
+      message: "",
+    },
+  });
+
+  const contactMutation = useMutation({
+    mutationFn: async (data: ContactFormValues) => {
+      return await apiRequest("/api/contact", "POST", data);
+    },
+    onSuccess: () => {
+      toast({
+        title: "Message Sent Successfully!",
+        description: "Thank you for contacting us. We'll get back to you soon.",
+      });
+      contactForm.reset();
+      setIsSubmitting(false);
+    },
+    onError: (error: any) => {
+      toast({
+        title: "Error",
+        description: error.message || "Failed to send message. Please try again.",
+        variant: "destructive",
+      });
+      setIsSubmitting(false);
+    },
+  });
+
+  const onContactSubmit = (data: ContactFormValues) => {
+    setIsSubmitting(true);
+    contactMutation.mutate(data);
+  };
 
   const newCategories = [
     { name: "Jamdani Paithani", image: paithaniImage },
@@ -338,6 +416,273 @@ export default function Home() {
                   </div>
                 ))}
               </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="contact" className="py-16 bg-gradient-to-b from-pink-50 to-white">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-12">
+              <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">Get In Touch</h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                We'd love to hear from you! Whether you have a question about our products, need assistance, or just want to share your feedback.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-12">
+              <Card className="border-pink-200 hover:shadow-xl transition-shadow" data-testid="card-contact-address">
+                <CardContent className="p-6 text-center">
+                  <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-pink-100 to-pink-200 rounded-full mb-4">
+                    <MapPin className="w-8 h-8 text-pink-600" />
+                  </div>
+                  <h3 className="text-lg font-semibold mb-2">Address</h3>
+                  <p className="text-sm text-muted-foreground" data-testid="text-address">
+                    Shop No. 15, Ground Floor,<br />Kalpataru Complex,<br />Near City Mall, Nashik,<br />Maharashtra 422001
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card className="border-pink-200 hover:shadow-xl transition-shadow" data-testid="card-contact-phone">
+                <CardContent className="p-6 text-center">
+                  <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-purple-100 to-purple-200 rounded-full mb-4">
+                    <Phone className="w-8 h-8 text-purple-600" />
+                  </div>
+                  <h3 className="text-lg font-semibold mb-2">Phone</h3>
+                  <a 
+                    href="tel:+915555555555" 
+                    className="text-purple-600 hover:underline text-sm block mb-2"
+                    data-testid="link-phone"
+                  >
+                    +91 5555555555
+                  </a>
+                  <div className="flex justify-center gap-3 mt-3">
+                    <a 
+                      href="https://instagram.com/ramanifashion" 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="text-pink-600 hover:scale-110 transition-transform"
+                      data-testid="link-instagram"
+                      aria-label="Instagram"
+                    >
+                      <FaInstagram className="w-5 h-5" />
+                    </a>
+                    <a 
+                      href="https://wa.me/915555555555" 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="text-green-600 hover:scale-110 transition-transform"
+                      data-testid="link-whatsapp"
+                      aria-label="WhatsApp"
+                    >
+                      <FaWhatsapp className="w-5 h-5" />
+                    </a>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-pink-200 hover:shadow-xl transition-shadow" data-testid="card-contact-email">
+                <CardContent className="p-6 text-center">
+                  <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-pink-100 to-purple-200 rounded-full mb-4">
+                    <Mail className="w-8 h-8 text-pink-600" />
+                  </div>
+                  <h3 className="text-lg font-semibold mb-2">Email</h3>
+                  <a 
+                    href="mailto:info@ramanifashion.in" 
+                    className="text-pink-600 hover:underline text-sm"
+                    data-testid="link-email"
+                  >
+                    info@ramanifashion.in
+                  </a>
+                </CardContent>
+              </Card>
+
+              <Card className="border-pink-200 hover:shadow-xl transition-shadow" data-testid="card-store-hours">
+                <CardContent className="p-6 text-center">
+                  <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-purple-100 to-pink-200 rounded-full mb-4">
+                    <Clock className="w-8 h-8 text-purple-600" />
+                  </div>
+                  <h3 className="text-lg font-semibold mb-2">Store Hours</h3>
+                  <div className="text-sm text-muted-foreground">
+                    <p data-testid="text-hours-weekday">Mon-Sat: 10 AM - 9 PM</p>
+                    <p data-testid="text-hours-sunday">Sun: 11 AM - 8 PM</p>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              <Card className="border-pink-200" data-testid="card-contact-form">
+                <CardContent className="p-8">
+                  <h3 className="text-2xl font-bold mb-6 bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
+                    Send Us a Message
+                  </h3>
+                  <Form {...contactForm}>
+                    <form onSubmit={contactForm.handleSubmit(onContactSubmit)} className="space-y-4">
+                      <FormField
+                        control={contactForm.control}
+                        name="name"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Name *</FormLabel>
+                            <FormControl>
+                              <Input 
+                                placeholder="Your full name" 
+                                {...field} 
+                                className="border-pink-200 focus:border-pink-500"
+                                data-testid="input-name"
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                      <FormField
+                        control={contactForm.control}
+                        name="mobile"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Mobile Number *</FormLabel>
+                            <FormControl>
+                              <Input 
+                                placeholder="Your mobile number" 
+                                {...field}
+                                className="border-pink-200 focus:border-pink-500"
+                                data-testid="input-mobile"
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                      <FormField
+                        control={contactForm.control}
+                        name="email"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Email Address *</FormLabel>
+                            <FormControl>
+                              <Input 
+                                type="email" 
+                                placeholder="your.email@example.com" 
+                                {...field}
+                                className="border-pink-200 focus:border-pink-500"
+                                data-testid="input-email"
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                      <FormField
+                        control={contactForm.control}
+                        name="subject"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Subject *</FormLabel>
+                            <FormControl>
+                              <Input 
+                                placeholder="What is this regarding?" 
+                                {...field}
+                                className="border-pink-200 focus:border-pink-500"
+                                data-testid="input-subject"
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                      <FormField
+                        control={contactForm.control}
+                        name="category"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Category of Interest *</FormLabel>
+                            <Select onValueChange={field.onChange} defaultValue={field.value}>
+                              <FormControl>
+                                <SelectTrigger 
+                                  className="border-pink-200 focus:border-pink-500"
+                                  data-testid="select-category"
+                                >
+                                  <SelectValue placeholder="Select a category" />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent>
+                                <SelectItem value="sarees" data-testid="option-sarees">Sarees</SelectItem>
+                                <SelectItem value="lehengas" data-testid="option-lehengas">Lehengas</SelectItem>
+                                <SelectItem value="kurtis" data-testid="option-kurtis">Kurtis</SelectItem>
+                                <SelectItem value="dress-materials" data-testid="option-dress-materials">Dress Materials</SelectItem>
+                                <SelectItem value="custom-order" data-testid="option-custom-order">Custom Order</SelectItem>
+                                <SelectItem value="bulk-order" data-testid="option-bulk-order">Bulk Order</SelectItem>
+                                <SelectItem value="general-inquiry" data-testid="option-general-inquiry">General Inquiry</SelectItem>
+                                <SelectItem value="complaint" data-testid="option-complaint">Complaint</SelectItem>
+                                <SelectItem value="feedback" data-testid="option-feedback">Feedback</SelectItem>
+                              </SelectContent>
+                            </Select>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                      <FormField
+                        control={contactForm.control}
+                        name="message"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Message</FormLabel>
+                            <FormControl>
+                              <Textarea 
+                                placeholder="Tell us more about your inquiry..."
+                                className="min-h-[100px] border-pink-200 focus:border-pink-500"
+                                {...field}
+                                data-testid="textarea-message"
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                      <Button 
+                        type="submit" 
+                        disabled={isSubmitting}
+                        className="w-full bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 text-white font-semibold py-6 text-lg"
+                        data-testid="button-submit"
+                      >
+                        {isSubmitting ? (
+                          "Sending..."
+                        ) : (
+                          <>
+                            <Send className="w-5 h-5 mr-2" />
+                            Send Message
+                          </>
+                        )}
+                      </Button>
+                    </form>
+                  </Form>
+                </CardContent>
+              </Card>
+
+              <Card className="border-pink-200" data-testid="card-map">
+                <CardContent className="p-0">
+                  <div className="relative w-full h-full min-h-[600px] rounded-lg overflow-hidden">
+                    <iframe
+                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3749.6774857769634!2d73.7875!3d19.9975!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTnCsDU5JzUxLjAiTiA3M8KwNDcnMTUuMCJF!5e0!3m2!1sen!2sin!4v1234567890"
+                      width="100%"
+                      height="100%"
+                      style={{ border: 0 }}
+                      allowFullScreen
+                      loading="lazy"
+                      referrerPolicy="no-referrer-when-downgrade"
+                      title="Ramani Fashion Location"
+                      data-testid="iframe-map"
+                    ></iframe>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
           </div>
         </section>
